@@ -19,13 +19,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+        // Enable a simple memory-based message broker to carry the greeting messages back to the client on destinations prefixed with /user
         registry.enableSimpleBroker("/user");
+        // This prefix will be used to define all the message mappings in controllers.
         registry.setApplicationDestinationPrefixes("/app");
+        // User destinations provide the ability for a user to subscribe to queue names unique
+        // to their session as well as for others to send messages to those unique, user-specific queues.
         registry.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        // Register endpoint for websocket connections.
         registry.addEndpoint("/ws").withSockJS();
     }
 
@@ -39,6 +44,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         converter.setContentTypeResolver(resolver);
 
         messageConverters.add(converter);
+
+        // Don't add default converters.
         return false;
     }
 }
