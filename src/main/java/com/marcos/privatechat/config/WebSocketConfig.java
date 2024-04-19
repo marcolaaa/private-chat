@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // Enable a simple memory-based message broker to carry the greeting messages back to the client on destinations prefixed with /user
-        registry.enableSimpleBroker("/user");
+        registry.enableSimpleBroker("/user", "/topic");
         // This prefix will be used to define all the message mappings in controllers.
         registry.setApplicationDestinationPrefixes("/app");
         // User destinations provide the ability for a user to subscribe to queue names unique
